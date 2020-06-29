@@ -9,4 +9,4 @@ The model is trained on a combination of datasets:
  *  [Caltech-USDC Birds 200 - A large dataset 200 different species of birds.](http://www.vision.caltech.edu/visipedia/CUB-200.html)
  *  [Landscape Pictures - Dastasets of pictures of natural landscapes.](https://www.kaggle.com/arnaud58/landscape-pictures)
  
-In order to train the model, download and extract the datasets into the directory called `training_dataset` in this repository.
+In order to train the model, create a directory called `training_dataset` in this repo. Then download and extract the datasets into the directory called `training_dataset`.
