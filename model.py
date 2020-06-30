@@ -7,10 +7,10 @@ import numpy as np
 def build_basic():
     print("Building basic model...")
     # Load the images and labels
-    train_images = np.load('train_images.npy', allow_pickle=True)
-    test_images = np.load('test_images.npy', allow_pickle=True)
-    train_labels = np.load('train_labels.npy', allow_pickle=True)
-    test_labels = np.load('test_labels.npy', allow_pickle=True)
+    train_images = np.load('data/train_images.npy', allow_pickle=True)
+    test_images = np.load('data/test_images.npy', allow_pickle=True)
+    train_labels = np.load('data/train_labels.npy', allow_pickle=True)
+    test_labels = np.load('data/test_labels.npy', allow_pickle=True)
 
     # Form, compile and feed the model
     model = keras.Sequential([
@@ -32,17 +32,17 @@ def build_basic():
     print("Test Loss:", test_loss)
 
     # Save the model
-    model.save('nn_model/basic')
+    model.save('models/basic')
     print("\n...Basic model built.")
 
 # Build the convolutional model
 def build_conv():
     print("Building convolutional model...")
     # Load the images and labels
-    train_images = np.load('train_images.npy', allow_pickle=True)
-    test_images = np.load('test_images.npy', allow_pickle=True)
-    train_labels = np.load('train_labels.npy', allow_pickle=True)
-    test_labels = np.load('test_labels.npy', allow_pickle=True)
+    train_images = np.load('data/train_images.npy', allow_pickle=True)
+    test_images = np.load('data/test_images.npy', allow_pickle=True)
+    train_labels = np.load('data/train_labels.npy', allow_pickle=True)
+    test_labels = np.load('data/test_labels.npy', allow_pickle=True)
 
     # Reformat data for CNN
     row_num = train_images[0].shape[0]
@@ -69,7 +69,7 @@ def build_conv():
     model.fit(train_images, train_labels, epochs=10, validation_data=(test_images, test_labels))
 
     # Save the model
-    model.save('nn_model/convolutional')
+    model.save('models/convolutional')
     print('...Convolutional model built.')
 
 

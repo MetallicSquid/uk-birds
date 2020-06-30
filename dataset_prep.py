@@ -88,10 +88,10 @@ def split_and_save_datasets():
     print(test_images.shape, train_images.shape, test_labels.shape, train_labels.shape)
 
     # Save the datasets
-    np.save('test_images.npy', test_images)
-    np.save('train_images.npy', train_images)
-    np.save('test_labels.npy', test_labels)
-    np.save('train_labels.npy', train_labels)
+    np.save('data/test_images.npy', test_images)
+    np.save('data/train_images.npy', train_images)
+    np.save('data/test_labels.npy', test_labels)
+    np.save('data/train_labels.npy', train_labels)
 
     print("\n...Datasets split and saved.")
 

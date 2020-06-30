@@ -1,4 +1,4 @@
 training_dataset/
-*.npy
-nn_model/
+data/
+models/
 __pycache__/
