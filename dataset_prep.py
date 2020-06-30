@@ -95,4 +95,3 @@ def split_and_save_datasets():
 
     print("\n...Datasets split and saved.")
 
-split_and_save_datasets()
