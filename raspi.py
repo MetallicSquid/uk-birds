@@ -40,7 +40,7 @@ while True:
     file_path = "/home/pi/Pictures/" + file_name
     camera.capture(file_path)
     resize_image = Image.open(file_path).resize((128, 128))
-    grey_array = np.array(resize_image.convert('L')).reshape(1, 128, 128) / 255.0
+    grey_array = np.array(resize_image.convert('RGB')).reshape(1, 128, 128, 3) / 255.0
     prediction = prob_model.predict(grey_array)
     if prediction[0][0] > prediction[0][1]:
         print(f"Bird: {prediction[0][0]} - Accepted.")
