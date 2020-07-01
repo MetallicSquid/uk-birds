@@ -14,7 +14,7 @@ def build_basic():
 
     # Form, compile and feed the model
     model = keras.Sequential([
-        keras.layers.Flatten(input_shape=(128, 128)),
+        keras.layers.Flatten(input_shape=(128, 128, 3)),
         keras.layers.Dense(128, activation='relu'),
         keras.layers.Dense(2)
         ])
@@ -43,27 +43,27 @@ def build_basic():
 def build_conv():
     print("Building convolutional model...")
     # Load the images and labels
-    train_images = np.load('data/train_images.npy', allow_pickle=True)
-    test_images = np.load('data/test_images.npy', allow_pickle=True)
-    train_labels = np.load('data/train_labels.npy', allow_pickle=True)
-    test_labels = np.load('data/test_labels.npy', allow_pickle=True)
+    train_images = np.load('data/train_images.npy', allow_pickle=True)[:2000]
+    test_images = np.load('data/test_images.npy', allow_pickle=True)[:2000]
+    train_labels = np.load('data/train_labels.npy', allow_pickle=True)[:2000]
+    test_labels = np.load('data/test_labels.npy', allow_pickle=True)[:2000]
 
     # Reformat data for CNN
     row_num = train_images[0].shape[0]
     col_num = train_images[0].shape[1]
-    train_images = train_images.reshape(train_images.shape[0], row_num, col_num, 1)
-    test_images = test_images.reshape(test_images.shape[0], row_num, col_num, 1)
+    train_images = train_images.reshape(train_images.shape[0], row_num, col_num, 3)
+    test_images = test_images.reshape(test_images.shape[0], row_num, col_num, 3)
 
     # Form, compile and feed the model
     model = keras.Sequential()
-    model.add(keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=(row_num, col_num, 1)))
+    model.add(keras.layers.Conv2D(16, (3, 3), activation='relu', input_shape=(row_num, col_num, 3)))
+    model.add(keras.layers.MaxPooling2D((2, 2)))
+    model.add(keras.layers.Conv2D(32, (3, 3), activation='relu'))
     model.add(keras.layers.MaxPooling2D((2, 2)))
     model.add(keras.layers.Conv2D(64, (3, 3), activation='relu'))
-    model.add(keras.layers.MaxPooling2D((2, 2)))
-    model.add(keras.layers.Conv2D(128, (3, 3), activation='relu'))
 
     model.add(keras.layers.Flatten())
-    model.add(keras.layers.Dense(256, activation='relu'))
+    model.add(keras.layers.Dense(128, activation='relu'))
     model.add(keras.layers.Dense(2))
 
     model.compile(optimizer='adam',

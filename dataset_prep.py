@@ -28,7 +28,7 @@ def collect_bird_images():
                     if image[:1] != '.':
                         label_list.append(0)
                         resize_image = Image.open(image).resize((128, 128))
-                        grey_array = np.array(resize_image.convert('L'))
+                        grey_array = np.array(resize_image.convert('RGB'))
                         image_list.append(grey_array)
                 os.chdir('..')
     classes.close()
@@ -45,7 +45,7 @@ def collect_landscape_images():
     for image in os.listdir(os.getcwd()):
         label_list.append(1)
         resize_image = Image.open(image).resize((128, 128))
-        grey_array = np.array(resize_image.convert('L'))
+        grey_array = np.array(resize_image.convert('RGB'))
         image_list.append(grey_array)
     os.chdir('..')
     os.chdir('..')
@@ -71,8 +71,6 @@ def split_and_save_datasets():
     np.random.shuffle(image_list)
     np.random.set_state(rng_state)
     np.random.shuffle(label_list)
-
-    print(label_list)
 
     # Shorten dataset
     image_list = image_list[:6000]
