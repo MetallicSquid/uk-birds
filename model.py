@@ -31,8 +31,12 @@ def build_basic():
     print("\nTest Accuracy:", test_accuracy)
     print("Test Loss:", test_loss)
 
-    # Save the model
-    model.save('models/basic')
+    # Save the model and weights
+    model_json = model.to_json()
+    json_file = open("models/basic.json", "w")
+    json_file.write(model_json)
+    json_file.close()
+    model.save_weights("models/basic.h5")
     print("\n...Basic model built.")
 
 # Build the convolutional model
@@ -68,8 +72,12 @@ def build_conv():
 
     model.fit(train_images, train_labels, epochs=10, validation_data=(test_images, test_labels))
 
-    # Save the model
-    model.save('models/convolutional')
+     # Save the model and weights
+    model_json = model.to_json()
+    json_file = open("models/convolutional.json", "w")
+    json_file.write(model_json)
+    json_file.close()
+    model.save_weights("models/convolutional.h5")
     print('...Convolutional model built.')
 
 

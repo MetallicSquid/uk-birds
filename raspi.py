@@ -1,4 +1,4 @@
-# Necessary imports
+# Neccessary imports
 import tensorflow as tf
 from tensorflow import keras
 import numpy as np
@@ -9,7 +9,11 @@ import os
 from PIL import Image
 
 # Create a predictor model to take photo when bird is detected
-model = tf.keras.models.load_model('models/basic')
+json_file = open("models/basic.json", "r")
+loaded_json = json_file.read()
+json_file.close()
+model = tf.keras.models.model_from_json(loaded_json)
+model.load_weights("models/basic.h5")
 
 prob_model = tf.keras.Sequential([model,
     tf.keras.layers.Softmax()])
