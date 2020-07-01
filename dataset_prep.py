@@ -67,12 +67,12 @@ def split_and_save_datasets():
     label_list = (bird[1] + landscape[1])
 
     # Shuffle the datasets
-    for _image in image_list:
-        index = random.randint(0, len(image_list)-1)
-        image = image_list.pop(index)
-        image_list.append(image)
-        label = label_list.pop(index)
-        label_list.append(label)
+    rng_state = np.random.get_state()
+    np.random.shuffle(image_list)
+    np.random.set_state(rng_state)
+    np.random.shuffle(label_list)
+
+    print(label_list)
 
     # Shorten dataset
     image_list = image_list[:6000]

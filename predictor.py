@@ -18,7 +18,7 @@ prob_model = tf.keras.Sequential([model,
 test_images = np.load("data/test_images.npy")
 
 predictions = prob_model.predict(test_images)
-for i in range(10):
+for i in range(30):
     print(predictions[i])
     plt.figure()
     plt.imshow(test_images[i])
