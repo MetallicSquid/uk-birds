@@ -19,22 +19,25 @@ def parse_pictures():
         tf.keras.layers.Softmax()])
 
     for image in os.listdir('/home/pi/Pictures'):
-        if image.split('.')[1] == 'jpg':
-            path = "/home/pi/Pictures/" + image
-            img = Image.open(path)
-            resize_image = img.resize((128, 128))
-            grey_array = np.array(resize_image.convert('RGB')).reshape(1, 128, 128, 3) / 255.0
-            prediction = prob_model.predict(grey_array)
-            if prediction[0][0] > prediction[0][1]:
-                print('Approved.')
-                approved_path = "/home/pi/Pictures/approved/" + image
-                img.save(approved_path)
-                os.remove(path)
-            else:
-                print('Rejected.')
-                rejected_path = "/home/pi/Pictures/rejected/" + image
-                img.save(rejected_path)
-                os.remove(path)
+        try:
+            if image.split('.')[1] == 'jpg':
+                path = "/home/pi/Pictures/" + image
+                img = Image.open(path)
+                resize_image = img.resize((128, 128))
+                grey_array = np.array(resize_image.convert('RGB')).reshape(1, 128, 128, 3) / 255.0
+                prediction = prob_model.predict(grey_array)
+                if prediction[0][0] > prediction[0][1]:
+                    print('Approved.')
+                    approved_path = "/home/pi/Pictures/approved/" + image
+                    img.save(approved_path)
+                    os.remove(path)
+                else:
+                    print('Rejected.')
+                    rejected_path = "/home/pi/Pictures/rejected/" + image
+                    img.save(rejected_path)
+                    os.remove(path)
+        except IndexError:
+            pass
 
 # Create a predictor model to take photo when bird is detected
 json_file = open("models/basic.json", "r")
