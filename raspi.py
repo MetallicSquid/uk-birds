@@ -26,12 +26,14 @@ def parse_pictures():
             grey_array = np.array(resize_image.convert('RGB')).reshape(1, 128, 128, 3) / 255.0
             prediction = prob_model.predict(grey_array)
             if prediction[0][0] > prediction[0][1]:
+                print('Approved.')
                 approved_path = "/home/pi/Pictures/approved/" + image
                 img.save(approved_path)
                 os.remove(path)
             else:
-                disapproved_path = "/home/pi/Pictures/disapproved/" + image
-                img.save(disapproved_path)
+                print('Rejected.')
+                rejected_path = "/home/pi/Pictures/rejected/" + image
+                img.save(rejected_path)
                 os.remove(path)
 
 # Create a predictor model to take photo when bird is detected
@@ -45,10 +47,12 @@ prob_model = tf.keras.Sequential([model,
     tf.keras.layers.Softmax()])
 
 def most_recent(path):
+    amount = 0
     largest = 0
     for image in os.listdir(path):
         try:
             if image.split('.')[1] == 'jpg':
+                amount += 1
                 image_number = int(image.split('.')[0])
                 if image_number > largest:
                     largest = image_number
@@ -74,3 +78,6 @@ while True:
     else:
         print(f"Non-bird: {prediction[0][1]} - Rejected.")
         os.remove(file_path)
+    if picture_count >= 100:
+        parse_pictures()
+        picture_count -= 100
