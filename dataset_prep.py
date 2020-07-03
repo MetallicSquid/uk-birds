@@ -5,6 +5,7 @@ import numpy as np
 from PIL import Image
 import tensorflow as tf
 from tensorflow import keras
+import multiprocessing as mp
 
 # Process all of the data in `training_dataset`
 def collect_bird_images():

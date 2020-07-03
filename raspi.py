@@ -23,8 +23,8 @@ def parse_pictures():
             if image.split('.')[1] == 'jpg':
                 path = "/home/pi/Pictures/" + image
                 img = Image.open(path)
-                resize_image = img.resize((128, 128))
-                grey_array = np.array(resize_image.convert('RGB')).reshape(1, 128, 128, 3) / 255.0
+                resize_image = img.resize((64, 64))
+                grey_array = np.array(resize_image.convert('RGB')).reshape(1, 64, 64, 3) / 255.0
                 prediction = prob_model.predict(grey_array)
                 if prediction[0][0] > prediction[0][1]:
                     print('Approved.')
@@ -72,8 +72,8 @@ while True:
     file_name = str(picture_count) + '.jpg'
     file_path = "/home/pi/Pictures/" + file_name
     camera.capture(file_path)
-    resize_image = Image.open(file_path).resize((128, 128))
-    grey_array = np.array(resize_image.convert('RGB')).reshape(1, 128, 128, 3) / 255.0
+    resize_image = Image.open(file_path).resize((64, 64))
+    grey_array = np.array(resize_image.convert('RGB')).reshape(1, 64, 64, 3) / 255.0
     prediction = prob_model.predict(grey_array)
     if prediction[0][0] > prediction[0][1]:
         print(f"Bird: {prediction[0][0]} - Accepted.")
